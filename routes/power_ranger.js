@@ -1,9 +1,6 @@
 var express = require('express');
+const ranger_controllers= require('../controllers/rangers');
 var router = express.Router();
-
-/* GET power_ranger class. */
-router.get('/', function(req, res, next) {
-  res.render('power_ranger', { title: 'Power Ranger' });
-});
-
+/* GET rangers */
+router.get('/', ranger_controllers.ranger_view_all_Page );
 module.exports = router;

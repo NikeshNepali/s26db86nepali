@@ -27,3 +27,14 @@ exports.ranger_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: Ranger update PUT' + req.params.id);
 };
 
+exports.ranger_view_all_Page = async function(req, res) {
+try{
+const theRangers = await rangers.find();
+res.render('power_ranger', { title: 'Ranger Search Results', results: theRangers });
+}
+catch(err){
+res.status(500);
+res.send(`{"error": ${err}}`);
+}
+};
+

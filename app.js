@@ -4,13 +4,57 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON;
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var powerRangerRouter = require('./routes/power_ranger');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+var ranger = require('./model/rangerSchema');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
+
+async function recreateDB(){
+  // Delete everything
+  await ranger.deleteMany();
+  let instance1 = new ranger({rangerColor:"Red", rangerPower:"Super Strength", rangerStrength:10});
+  let instance2 = new ranger({rangerColor:"Blue", rangerPower:"Super Speed", rangerStrength:8});
+  let instance3 = new ranger({rangerColor:"Green", rangerPower:"Super Agility", rangerStrength:7});
+
+  instance1.save().then(docs =>{
+    console.log("First object saved")
+  }).catch(err =>{
+    console.error(err);
+  });
+
+  instance2.save().then(docs =>{
+    console.log("Second object saved")
+  }).catch(err =>{
+    console.error(err);
+  });
+
+  instance3.save().then(docs =>{
+    console.log("Third object saved")
+  }).catch(err =>{
+    console.error(err);
+  });
+}
+let reseed = true;
+if (reseed) { recreateDB();}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +71,7 @@ app.use('/users', usersRouter);
 app.use('/power_ranger', powerRangerRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
