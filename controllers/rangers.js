@@ -1,7 +1,14 @@
 var rangers = require('../model/rangerSchema');
 // List of all Rangers
-exports.ranger_list = function(req, res) {
-res.send('NOT IMPLEMENTED: Ranger list');
+exports.ranger_list = async function(req, res) {
+try{
+const theRangers = await rangers.find();
+res.send(theRangers);
+}
+catch(err){
+res.status(500);
+res.send(`{"error": ${err}}`);
+}
 };
 // for a specific Ranger.
 exports.ranger_detail = function(req, res) {
