@@ -1,9 +1,10 @@
-// API for our resources
-exports.api = function(req, res) {
-res.write('[');
-res.write('{"resource":"rangers", ');
-res.write(' "verbs":["GET","PUT", "DELETE"] ');
-res.write('}');
-res.write(']')
-res.send();
+exports.api = async function(req, res) {
+try{
+theCostumes = await Costume.find();
+res.send(theCostumes);
+}
+catch(err){
+res.status(500);
+res.send(`{"error": ${err}}`);
+}
 }

@@ -19,3 +19,4 @@ res.send('NOT IMPLEMENTED: Ranger delete DELETE ' + req.params.id);
 exports.ranger_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: Ranger update PUT' + req.params.id);
 };
+
