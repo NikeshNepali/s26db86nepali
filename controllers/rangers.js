@@ -14,10 +14,24 @@ res.send(`{"error": ${err}}`);
 exports.ranger_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: Ranger detail: ' + req.params.id);
 };
+
 // Handle Ranger create on POST.
-exports.ranger_create_post = function(req, res) {
-res.send('NOT IMPLEMENTED: Ranger create POST');
+exports.ranger_create_post = async function(req, res) {
+console.log(req.body)
+let document = new rangers();
+document.rangerColor = req.body.rangerColor;
+document.rangerPower = req.body.rangerPower;
+document.rangerStrength = req.body.rangerStrength;
+try{
+let result = await document.save();
+res.send(result);
+}
+catch(err){
+res.status(500);
+res.send(`{"error": ${err}}`);
+}
 };
+
 // Handle Ranger delete from on DELETE.
 exports.ranger_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: Ranger delete DELETE ' + req.params.id);
