@@ -11,9 +11,17 @@ res.send(`{"error": ${err}}`);
 }
 };
 // for a specific Ranger.
-exports.ranger_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: Ranger detail: ' + req.params.id);
+exports.ranger_detail = async function(req, res) {
+console.log("detail" + req.params.id)
+try {
+result = await rangers.findById( req.params.id)
+res.send(result)
+} catch (error) {
+res.status(500)
+res.send(`{"error": document for id ${req.params.id} not found`);
+}
 };
+
 
 // Handle Ranger create on POST.
 exports.ranger_create_post = async function(req, res) {
@@ -36,9 +44,26 @@ res.send(`{"error": ${err}}`);
 exports.ranger_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: Ranger delete DELETE ' + req.params.id);
 };
+
 // Handle Ranger update form on PUT.
-exports.ranger_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: Ranger update PUT' + req.params.id);
+exports.ranger_update_put = async function(req, res) {
+console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+try {
+let toUpdate = await rangers.findById( req.params.id)
+// Do updates of properties
+if(req.body.rangerColor)
+toUpdate.rangerColor = req.body.rangerColor;
+if(req.body.rangerPower) toUpdate.rangerPower = req.body.rangerPower;
+if(req.body.rangerStrength) toUpdate.rangerStrength = req.body.rangerStrength;
+let result = await toUpdate.save();
+console.log("Sucess " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+}
 };
 
 exports.ranger_view_all_Page = async function(req, res) {
