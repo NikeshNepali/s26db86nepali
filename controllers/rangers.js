@@ -41,9 +41,18 @@ res.send(`{"error": ${err}}`);
 };
 
 // Handle Ranger delete from on DELETE.
-exports.ranger_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: Ranger delete DELETE ' + req.params.id);
+exports.ranger_delete = async function(req, res) {
+console.log("delete " + req.params.id)
+try {
+result = await rangers.findByIdAndDelete( req.params.id)
+console.log("Removed " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": Error deleting ${err}}`);
+}
 };
+
 
 // Handle Ranger update form on PUT.
 exports.ranger_update_put = async function(req, res) {
