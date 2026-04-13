@@ -1,0 +1,31 @@
+extends layout
+block content
+  h1= title
+  form(id='RangerForm', action="/resource/rangers", method="POST")
+    div.form-group
+      label.rangerAttr(for='rangerColor') Ranger color
+      input#rangerColor(type='text', name='rangerColor')
+    div.form-group
+      label.rangerAttr(for='rangerPower') Ranger power
+      input#rangerPower(type='text', name='rangerPower')
+    div.form-group
+      label.rangerAttr(for='rangerStrength') Ranger strength
+      input#rangerStrength(type='number', name='rangerStrength')
+    input(type="submit")
+  script.
+    document.forms['RangerForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeded")
+      // TODO handle body
+      }).catch((error) => {
+      // TODO handle error
+        alert("Save failed " + error )
+      });
+    });
