@@ -3,15 +3,33 @@ extends layout
 block content
   h1= 'Search Result: ' + title
   - rangers = results  
-  div(class="container_fluid")
-    div(class="row")
-    - index = 0
-      each ranger in rangers
-        div(class="col-sm-2" onclick=`buy(${index})`)
-          p #{ranger.rangerColor} #{ranger.rangerPower} #{ranger.rangerStrength}
+
+  div(class="container-fluid")
+    div(class="row g-2 mt-3")
+      - index = 0
+        each ranger in rangers
+          -
+            let bgClass = "bg-light"
+            if(ranger.rangerColor == "Red") bgClass = "bg-danger text-white"
+            else if(ranger.rangerColor == "Blue") bgClass = "bg-primary text-white"
+            else if(ranger.rangerColor == "Green") bgClass = "bg-success text-white"
+            else if(ranger.rangerColor == "Yellow") bgClass = "bg-warning text-dark"
+            else if(ranger.rangerColor == "Black") bgClass = "bg-dark text-white"
+
+          div(
+            class="col-sm-2 p-2"
+            onclick=`buy(${index})`
+          )
+            div(class=`border rounded shadow-sm p-2 ${bgClass} text-center`)
+              p(class="mb-1 fw-bold") #{ranger.rangerColor}
+              p(class="mb-1") #{ranger.rangerPower}
+              p(class="mb-0") #{ranger.rangerStrength}
+
           - index++
+
   script.
-    var rangers = results 
+    var rangers = results
+
     function buy(index){
-      alert("You bought " + rangers[index])
+      alert("You bought " + rangers[index].rangerColor)
     }

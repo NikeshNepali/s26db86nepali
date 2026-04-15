@@ -1,20 +1,30 @@
 extends layout
+
 block content
   h1= title
-  - let rangerId = toShow._id
-  - let rangerColor = toShow.rangerColor
-  - let rangerPower = toShow.rangerPower
-  - let rangerStrength = toShow.rangerStrength
-  div
-   div.row
-    div(class='costumeAttr mr-3') Ranger ID is:
-    div #{rangerId}
-   div.row
-    div(class='costumeAttr mr-3') Ranger Color is:
-    div #{rangerColor}
-   div.row
-    div(class='costumeAttr mr-3') Ranger Power is:
-    div #{rangerPower}
-   div.row
-    div(class='costumeAttr mr-3') Ranger Strength is:
-    div #{rangerStrength}
+
+  if !toShow
+    h2 No Item Found
+
+  else
+    - let rangerId = toShow._id
+    - let rangerColor = toShow.rangerColor
+    - let rangerPower = toShow.rangerPower
+    - let rangerStrength = toShow.rangerStrength
+
+    div
+      div.row
+        div(class='costumeAttr mr-3') Ranger ID is:
+        div #{rangerId}
+
+      div.row
+        div(class='costumeAttr mr-3') Ranger Color is:
+        div #{rangerColor}
+
+      div.row
+        div(class='costumeAttr mr-3') Ranger Power is:
+        div #{rangerPower}
+
+      div.row
+        div(class='costumeAttr mr-3') Ranger Strength is:
+        div #{rangerStrength}
