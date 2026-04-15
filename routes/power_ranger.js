@@ -8,4 +8,5 @@ router.put('/rangers/:id', ranger_controllers.ranger_update_put);
 
 router.get('/detail', ranger_controllers.ranger_view_one_Page);
 router.get('/create', ranger_controllers.ranger_create_Page);
+router.get('/update', ranger_controllers.ranger_update_Page);
 module.exports = router;

@@ -1,0 +1,39 @@
+extends layout
+block content
+ h1= title
+ - let rangerId = toShow._id
+ - let rangerColor = toShow.rangerColor
+ - let rangerPower = toShow.rangerPower
+ - let rangerStrength = toShow.rangerStrength
+ div.row(class='mb-2')
+  div.mr-1 ID is
+  div #{rangerId}
+ - let actionid = "/resource/rangers/" + rangerId
+ form(id='RangerForm', action= actionid, method="PUT")
+  div.form-group
+   label.rangerAttr(for='rangerColor') Ranger Color
+   input#rangerColor(type='text', name='rangerColor', value= rangerColor )
+  div.form-group
+   label.rangerAttr(for='rangerStrength') Ranger Strength
+   input#rangerStrength(type='text', name='rangerStrength', value= rangerStrength )
+  div.form-group
+   label.rangerAttr(for='rangerPower') Ranger power
+   input#rangerPower(type='number', name='rangerPower', value= rangerPower )
+  input(type="submit")
+  script.
+   document.forms['RangerForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+   // TODO do something here to show user that form is being submitted
+    fetch(event.target.action, {
+     method: 'PUT',
+     body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+    }).then((resp) => {
+     return resp.json(); // or resp.text() or whatever the server sends
+    }).then((body) => {
+     alert("Update succeded")
+    // TODO handle body
+    }).catch((error) => {
+    // TODO handle error
+     alert("Update failed " + error )
+    });
+   });
