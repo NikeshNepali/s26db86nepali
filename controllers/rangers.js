@@ -128,3 +128,16 @@ res.send(`{'error': '${err}'}`);
 }
 };
 
+// Handle a delete one view with id from query
+exports.ranger_delete_Page = async function(req, res) {
+console.log("Delete view for id " + req.query.id)
+try{
+result = await rangers.findById(req.query.id)
+res.render('rangerDelete', { title: 'Ranger Delete', toShow:
+result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
