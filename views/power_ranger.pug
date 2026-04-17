@@ -5,9 +5,10 @@ block content
   - rangers = results  
 
   div(class="container-fluid")
-    div(class="row g-2 mt-3")
+    div(class="row g-2 mt-3 m-1")
       - index = 0
         each ranger in rangers
+          - let destination = `dispatch(\"/power_ranger/update/?id=${ranger._id}\")`
           -
             let bgClass = "bg-light"
             if(ranger.rangerColor == "Red") bgClass = "bg-danger text-white"
@@ -24,7 +25,7 @@ block content
               p(class="mb-1 fw-bold") #{ranger.rangerColor}
               p(class="mb-1") #{ranger.rangerPower}
               p(class="mb-0") #{ranger.rangerStrength}
-
+              button.btn( class="btn-primary ml-1", onclick=destination) Update
           - index++
 
   script.
@@ -33,3 +34,7 @@ block content
     function buy(index){
       alert("You bought " + rangers[index].rangerColor)
     }
+  script.
+   function dispatch(path){
+    window.location.href=path
+   }
