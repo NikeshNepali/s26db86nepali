@@ -1,18 +1,11 @@
 extends layout
-
 block content
-  h1= title
-  p My Name is Nikesh Nepali.
-  button(type="button", class="btn btn-secondary" onclick="reduce()") Sample Button
-  div(id="use") take some away
-  script. 
-   current = 11;
-   quantity = 2;
-   function reduce(){
-    current -= quantity;
-    if(current < 0){
-      current = 0;
-    }
-    document.getElementById("use").innerHTML = "Reduced by " + quantity + " to " + current;
-   }
-  a(href="/power_ranger") Go to Power Ranger.
+ if (!user)
+  a(href="/login") Login
+  br
+  a(href="/register") Register
+ if (user)
+  p You are currently logged in as #{user.username}
+  a(href="/power_ranger") Take me to Rangers
+  br
+  a(href="/logout") Logout
