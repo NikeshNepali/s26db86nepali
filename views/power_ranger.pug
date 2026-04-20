@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  button.btn( class="btn-primary ml-1", onclick="create()") Create
   h1= 'Search Result: ' + title
   - rangers = results  
 
@@ -9,6 +10,8 @@ block content
       - index = 0
         each ranger in rangers
           - let destination = `dispatch(\"/power_ranger/update/?id=${ranger._id}\")`
+          - let detail = `dispatch(\"/power_ranger/detail/?id=${ranger._id}\")`
+          - let deletes = `dispatch(\"/power_ranger/delete/?id=${ranger._id}\")`
           -
             let bgClass = "bg-light"
             if(ranger.rangerColor == "Red") bgClass = "bg-danger text-white"
@@ -26,6 +29,9 @@ block content
               p(class="mb-1") #{ranger.rangerPower}
               p(class="mb-0") #{ranger.rangerStrength}
               button.btn( class="btn-primary ml-1", onclick=destination) Update
+              button.btn( class="btn-secondary ml-1", onclick=detail) Detail
+              button.btn( class="btn-warning ml-1", onclick=deletes) Delete
+              
           - index++
 
   script.
@@ -37,4 +43,8 @@ block content
   script.
    function dispatch(path){
     window.location.href=path
+   }
+  script. 
+   function create(){
+    window.location.href= "/power_ranger/create"
    }

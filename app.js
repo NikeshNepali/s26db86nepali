@@ -53,8 +53,8 @@ async function recreateDB(){
   // Delete everything
   await ranger.deleteMany();
   let instance1 = new ranger({rangerColor:"Red", rangerPower:"Super Strength", rangerStrength:10});
-  let instance2 = new ranger({rangerColor:"Blue", rangerPower:"Super Speed", rangerStrength:8});
-  let instance3 = new ranger({rangerColor:"Green", rangerPower:"Super Agility", rangerStrength:7});
+  let instance2 = new ranger({rangerColor:"Blue", rangerPower:"Super Speed", rangerStrength:20});
+  let instance3 = new ranger({rangerColor:"Green", rangerPower:"Super Agility", rangerStrength:30});
 
   instance1.save().then(docs =>{
     console.log("First object saved")
